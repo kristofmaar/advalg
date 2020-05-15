@@ -41,7 +41,7 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
                 population = newPopulation;
                 best = GetBestChromosome(population);
 
-                Console.WriteLine(best.CalculateFitness(functionApproximation).ToString());
+                Console.WriteLine(String.Format("Fitness: {0}\nvalues: {1}", best.CalculateFitness(functionApproximation).ToString(), best.ToString()));
             }
             Console.WriteLine("Best solution found:\n\tFitness:{0}\n\tChromosome: {1}", best.CalculateFitness(functionApproximation), best.ToString());
         }

@@ -7,15 +7,15 @@ namespace AdvancedAlgorithms_ISGK7K
     {
         static void Main(string[] args)
         {
-            FA_With_GA teszt = new FA_With_GA(new GASettings { 
-                NumberOfPopulation = 200,
-                NumberOfParents = 5,
+            FA_With_GA faWithGa = new FA_With_GA(new GASettings { 
+                NumberOfPopulation = 500,
+                NumberOfParents = 2,
                 ElitismNumber = 10,
-                MutationPercent = 10,
+                MutationPercent = 5,
                 MaxIterations = 10000,
                 InputFilePath = "Input/FuncAppr1.txt"
             });
-            teszt.SolveProblem();
+            faWithGa.SolveProblem();
         }
     }
 }
