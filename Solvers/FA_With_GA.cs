@@ -3,7 +3,6 @@ using AdvancedAlgorithms_ISGK7K.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 
 namespace AdvancedAlgorithms_ISGK7K.Solvers
 {
@@ -20,7 +19,7 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
         public FA_With_GA(GASettings settings)
         {
             this.settings = settings;
-            this.functionApproximation = new FunctionApproximation(settings.InputFilePath);
+            functionApproximation = new FunctionApproximation(settings.InputFilePath);
         }
 
         public void SolveProblem()
@@ -41,9 +40,9 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
                 population = newPopulation;
                 best = GetBestChromosome(population);
 
-                Console.WriteLine(String.Format("Fitness: {0}\nvalues: {1}", best.CalculateFitness(functionApproximation).ToString(), best.ToString()));
+                Console.WriteLine(String.Format("Fittness: {0}\nvalues: {1}", best.CalculateFitness(functionApproximation).ToString(), best.ToString()));
             }
-            Console.WriteLine("Best solution found:\n\tFitness:{0}\n\tChromosome: {1}", best.CalculateFitness(functionApproximation), best.ToString());
+            Console.WriteLine("Best solution found:\n\tFittness:{0}\n\tChromosome: {1}", best.CalculateFitness(functionApproximation), best.ToString());
         }
 
         private List<Chromosome> InitializePopulation()
