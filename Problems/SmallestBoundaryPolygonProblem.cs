@@ -4,38 +4,43 @@ using System.IO;
 
 namespace AdvancedAlgorithms_ISGK7K.Problems
 {
-	class SmallestBoundaryPolygonProblem
+	public class SmallestBoundaryPolygonProblem
     {
-		public List<Point> points = new List<Point>();
+		private List<Point> points = new List<Point>();
 
-		public float distanceFromLine(Point lp1, Point lp2, Point p)
+		public SmallestBoundaryPolygonProblem(string fileName)
 		{
-			return (float)(((lp2.y - lp1.y) * p.x - (lp2.x - lp1.x) * p.y + lp2.x * lp1.y - lp2.y * lp1.x) / Math.Sqrt(Math.Pow(lp2.y - lp1.y, 2) + Math.Pow(lp2.x - lp1.x, 2)));
+			loadPointsFromFile(fileName);
+		}
+
+		public double distanceFromLine(Point lp1, Point lp2, Point p)
+		{
+			return (((lp2.y - lp1.y) * p.x - (lp2.x - lp1.x) * p.y + lp2.x * lp1.y - lp2.y * lp1.x) / Math.Sqrt(Math.Pow(lp2.y - lp1.y, 2) + Math.Pow(lp2.x - lp1.x, 2)));
 		}
 		
-		public float lengthOfBoundary(List<Point> solution)
+		public double lengthOfBoundary(List<Point> solution)
 		{
-			float sum_length = 0;
+			double sum_length = 0;
 
 			for (int li = 0; li < solution.Count - 1; li++)
 			{
 				Point p1 = solution[li];
 				Point p2 = solution[(li + 1) % solution.Count];
-				sum_length += (float)Math.Sqrt(Math.Pow(p1.x - p2.x, 2) + Math.Pow(p1.y - p2.y, 2));
+				sum_length += Math.Sqrt(Math.Pow(p1.x - p2.x, 2) + Math.Pow(p1.y - p2.y, 2));
 			}
 			return sum_length;
 		}
 
-		public float outerDistanceToBoundary(List<Point> solution)
+		public double outerDistanceToBoundary(List<Point> solution)
 		{
-			float sum_min_distances = 0;
+			double sum_min_distances = 0;
 
 			for (int pi = 0; pi < points.Count; pi++)
 			{
-				float min_dist = 0;
+				double min_dist = 0;
 				for (int li = 0; li < solution.Count; li++)
 				{
-					float act_dist = distanceFromLine(solution[li], solution[(li + 1) % solution.Count], points[pi]);
+					double act_dist = distanceFromLine(solution[li], solution[(li + 1) % solution.Count], points[pi]);
 					if (li == 0 || act_dist < min_dist)
 						min_dist = act_dist;
 				}
@@ -45,12 +50,12 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
 			return sum_min_distances;
 		}
 
-		public float objective(List<Point> solution)
+		public double objective(List<Point> solution)
 		{
 			return lengthOfBoundary(solution);
 		}
 
-		public float constraint(List<Point> solution)
+		public double constraint(List<Point> solution)
 		{
 			return -outerDistanceToBoundary(solution);
 		}
@@ -64,8 +69,8 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
 				string[] lineSplit = line.Split("\t");
 				points.Add(new Point()
 				{
-					x = float.Parse(lineSplit[0]),
-					y = float.Parse(lineSplit[1])
+					x = double.Parse(lineSplit[0]),
+					y = double.Parse(lineSplit[1])
 				});
 			}
 		}
@@ -83,7 +88,25 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
 
 	public class Point
 	{
-		public float x;
-		public float y;
+		public double x;
+		public double y;
+	}
+
+	public class Polygon : List<Point>
+	{
+		public double CalculateFitness(SmallestBoundaryPolygonProblem smallestBoundaryPolygonProblem)
+		{
+			return smallestBoundaryPolygonProblem.lengthOfBoundary(this) + smallestBoundaryPolygonProblem.outerDistanceToBoundary(this);
+		}
+
+		public override string ToString()
+		{
+			string output = string.Empty;
+			foreach (Point point in this)
+			{
+				output += String.Format(" ({0},{1}) ", point.x, point.y);
+			}
+			return output;
+		}
 	}
 }

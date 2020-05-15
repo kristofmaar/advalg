@@ -7,7 +7,7 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
     /// <summary>
     /// Travelling Salesman Problem solved with Random Optimization
     /// </summary>
-    public class TSS_With_RO
+    public class TS_With_RO
     {
     }
 }
