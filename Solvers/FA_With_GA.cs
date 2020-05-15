@@ -1,6 +1,9 @@
-﻿using System;
+﻿using AdvancedAlgorithms_ISGK7K.Problems;
+using AdvancedAlgorithms_ISGK7K.Settings;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace AdvancedAlgorithms_ISGK7K.Solvers
 {
@@ -9,6 +12,107 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
     /// </summary>
     public class FA_With_GA
     {
+        private static Random random = new Random();
+        private GASettings settings;
+        private FunctionApproximation functionApproximation;
+        private Chromosome best;
 
+        public FA_With_GA(GASettings settings)
+        {
+            this.settings = settings;
+            this.functionApproximation = new FunctionApproximation(settings.InputFilePath);
+        }
+
+        public void SolveProblem()
+        {
+            List<Chromosome> population = InitializePopulation();
+            best = GetBestChromosome(population);
+            for (int iterations = 0; iterations < settings.MaxIterations; iterations++) // StopCondition
+            {
+                List<Chromosome> newPopulation = Elitism(population);
+
+                while (newPopulation.Count != population.Count)
+                {
+                    List<Chromosome> parents = GetParents(population);
+                    Chromosome afterCrossover = Crossover(parents);
+                    Chromosome afterMutation = Mutation(afterCrossover);
+                    newPopulation.Add(afterMutation);
+                }
+                population = newPopulation;
+                best = GetBestChromosome(population);
+
+                Console.WriteLine(best.CalculateFitness(functionApproximation).ToString());
+            }
+            Console.WriteLine("Best solution found:\n\tFitness:{0}\n\tChromosome: {1}", best.CalculateFitness(functionApproximation), best.ToString());
+        }
+
+        private List<Chromosome> InitializePopulation()
+        {
+            List<Chromosome> coefficientsList = new List<Chromosome>();
+            for (int i = 0; i < settings.NumberOfPopulation; i++)
+            {
+                Chromosome coeffitients = new Chromosome();
+                for (int j = 0; j < 5; j++)
+                {
+                    coeffitients.Add(random.NextDouble());
+                }
+                coefficientsList.Add(coeffitients);
+            }
+            return coefficientsList;
+        }
+
+        private Chromosome GetBestChromosome(List<Chromosome> population)
+        {
+            return population.OrderBy(x => x.CalculateFitness(functionApproximation)).FirstOrDefault();
+        }
+
+        private List<Chromosome> Elitism(List<Chromosome> population)
+        {
+            return population.OrderBy(x => x.CalculateFitness(functionApproximation)).Take(settings.ElitismNumber).ToList();
+        }
+
+        private List<Chromosome> GetParents(List<Chromosome> population)
+        {
+            return population.OrderBy(x => x.CalculateFitness(functionApproximation)).Take(settings.NumberOfParents).ToList();
+        }
+
+        private Chromosome Crossover(List<Chromosome> parents)
+        {
+            Chromosome crossoverChromosome = new Chromosome();
+            for (int i = 0; i < parents.Count - 1; i++)
+            {
+                Chromosome firstParent = parents[i];
+                Chromosome secondParent = parents[i + 1];
+                
+                crossoverChromosome = new Chromosome()
+                {
+                    secondParent[0],
+                    secondParent[1],
+                    firstParent[2],
+                    firstParent[3],
+                    firstParent[4]
+                };
+            }
+            return crossoverChromosome;
+        }
+
+        private Chromosome Mutation(Chromosome chromosome)
+        {
+            return new Chromosome()
+            {
+                chromosome[0] * GenerateMutationConstraint(),
+                chromosome[1] * GenerateMutationConstraint(),
+                chromosome[2] * GenerateMutationConstraint(),
+                chromosome[3] * GenerateMutationConstraint(),
+                chromosome[4] * GenerateMutationConstraint(),
+            };
+        }
+        
+        private double GenerateMutationConstraint()
+        {
+            double minRange = 1.00 - (settings.MutationPercent / (double)100);
+            double maxRange = 1.00 + (settings.MutationPercent / (double)100);
+            return (minRange + (maxRange - minRange) * random.NextDouble());
+        }
     }
 }

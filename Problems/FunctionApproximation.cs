@@ -6,7 +6,12 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
 {
     public class FunctionApproximation
     {
-        protected List<ValuePair> known_values;
+        protected List<ValuePair> known_values = new List<ValuePair>();
+
+        public FunctionApproximation(string fileName)
+        {
+            loadKnownValuesFromFile(fileName);
+        }
 
         public void loadKnownValuesFromFile(string fileName)
         {
@@ -17,24 +22,23 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
                 string[] lineSplit = line.Split("\t");
                 known_values.Add(new ValuePair()
                 {
-                    input = float.Parse(lineSplit[0]),
-                    output = float.Parse(lineSplit[1])
+                    input = double.Parse(lineSplit[0]),
+                    output = double.Parse(lineSplit[1])
                 });
             }
         }
 
-        public float objective(List<float> coefficients)
+        public double objective(Chromosome coefficients)
         {
-            float sum_diff = 0;
+            double sum_diff = 0;
 
             foreach (ValuePair valuePair in known_values)
             {
-                float x = valuePair.input;
-                float y = (float)(
-                    coefficients[0] * Math.Pow(x - coefficients[1], 3) +
+                double x = valuePair.input;
+                double y = coefficients[0] * Math.Pow(x - coefficients[1], 3) +
                     coefficients[2] * Math.Pow(x - coefficients[3], 2) +
-                    coefficients[4]);
-                float diff = (float)Math.Pow(y - valuePair.output, 2);
+                    coefficients[4];
+                double diff = Math.Pow(y - valuePair.output, 2);
                 sum_diff += diff;
             }
             return sum_diff;
@@ -43,7 +47,19 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
 
     public class ValuePair
     {
-        public float input;
-        public float output;
-    };
+        public double input;
+        public double output;
+    }
+
+    public class Chromosome : List<double>
+    {
+        public double CalculateFitness(FunctionApproximation functionApproximation) {
+            return functionApproximation.objective(this);
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} {1} {2} {3} {4}", this[0], this[1], this[2], this[3], this[4]);
+        }
+    }
 }
