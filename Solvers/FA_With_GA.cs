@@ -47,17 +47,17 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
 
         private List<Chromosome> InitializePopulation()
         {
-            List<Chromosome> coefficientsList = new List<Chromosome>();
+            List<Chromosome> initPopulation = new List<Chromosome>();
             for (int i = 0; i < settings.NumberOfPopulation; i++)
             {
-                Chromosome coeffitients = new Chromosome();
+                Chromosome chromosome = new Chromosome();
                 for (int j = 0; j < 5; j++)
                 {
-                    coeffitients.Add(random.NextDouble());
+                    chromosome.Add(random.NextDouble());
                 }
-                coefficientsList.Add(coeffitients);
+                initPopulation.Add(chromosome);
             }
-            return coefficientsList;
+            return initPopulation;
         }
 
         private Chromosome GetBestChromosome(List<Chromosome> population)
