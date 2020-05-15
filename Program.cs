@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HalalBeadando_ISGK7K.Problems;
+using System;
 
 namespace HalalBeadando_ISGK7K
 {
@@ -6,7 +7,6 @@ namespace HalalBeadando_ISGK7K
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
         }
     }
 }
