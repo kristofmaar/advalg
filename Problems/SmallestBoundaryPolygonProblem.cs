@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace HalalBeadando_ISGK7K.Problems
+namespace AdvancedAlgorithms_ISGK7K.Problems
 {
 	class SmallestBoundaryPolygonProblem
     {

@@ -1,7 +1,7 @@
-﻿using HalalBeadando_ISGK7K.Problems;
+﻿using AdvancedAlgorithms_ISGK7K.Problems;
 using System;
 
-namespace HalalBeadando_ISGK7K
+namespace AdvancedAlgorithms_ISGK7K
 {
     class Program
     {
