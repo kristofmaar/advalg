@@ -23,17 +23,17 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
         public void SolveProblem()
         {
             Route route = tSP.BaseRoute;
-            while (route.CalculateFitness(tSP) > settings.FittnessToReach) // Stop condition
+            while (route.CalculateFitness(tSP) > settings.FitnessToReach) // Stop condition
             {
                 Route newRoute = GenerateNewRoute(route);
                 if (newRoute.CalculateFitness(tSP) < route.CalculateFitness(tSP))
                 {
                     route = newRoute;
-                    Console.WriteLine(String.Format("Found better solution. Fittness: {0}", newRoute.CalculateFitness(tSP)));
+                    Console.WriteLine(String.Format("Found a better solution. Fitness: {0}", newRoute.CalculateFitness(tSP)));
                 }
 
             }
-            Console.WriteLine(String.Format("Found best solution. Fittness: {0}, coordinates: {1}", route.CalculateFitness(tSP), route.ToString()));
+            Console.WriteLine(String.Format("Found best solution. Fitness: {0}, coordinates:\n{1}", route.CalculateFitness(tSP), route.ToString()));
         }
 
         private Route GenerateNewRoute(Route route)

@@ -4,7 +4,7 @@
     {
         public int Mean;
         public int Variance;
-        public double FittnessToReach;
+        public double FitnessToReach;
         public string InputFilePath;
     }
 }

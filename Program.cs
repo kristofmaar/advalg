@@ -1,6 +1,7 @@
 ﻿using AdvancedAlgorithms_ISGK7K.Settings;
 using AdvancedAlgorithms_ISGK7K.Solvers;
 using System;
+using System.Diagnostics;
 
 namespace AdvancedAlgorithms_ISGK7K
 {
@@ -18,6 +19,8 @@ namespace AdvancedAlgorithms_ISGK7K
 
             var input = Console.ReadKey();
             Console.WriteLine();
+            Stopwatch sw = Stopwatch.StartNew();
+
             switch (input.Key)
             {
                 case ConsoleKey.D1:
@@ -38,7 +41,7 @@ namespace AdvancedAlgorithms_ISGK7K
                         Epsilon = 10,
                         Dimension = 3,
                         MaxCoordinates = 400,
-                        FittnessToReach = 1.1,
+                        FitnessToReach = 1.1,
                         InputFilePath = "Input/Points.txt"
                     });
                     sbppWithHc.SolveProblem();
@@ -46,7 +49,7 @@ namespace AdvancedAlgorithms_ISGK7K
                 case ConsoleKey.D3:
                     TS_With_RO tsWithRo = new TS_With_RO(new ROSettings()
                     {
-                        FittnessToReach = 4500,
+                        FitnessToReach = 4500,
                         Mean = 0,
                         Variance = 2,
                         InputFilePath = "Input/Towns.txt"
@@ -59,6 +62,8 @@ namespace AdvancedAlgorithms_ISGK7K
                 default:
                     break;
             }
+            sw.Stop();
+            Console.WriteLine(String.Format("\nTime elapsed: {0}", sw.Elapsed.ToString()));
         }
     }
 }

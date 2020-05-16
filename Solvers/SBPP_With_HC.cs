@@ -22,16 +22,16 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
         public void SolveProblem()
         {
             Polygon polygon = InitalizePolygon();
-            while (polygon.CalculateFitness(sBPP) > settings.FittnessToReach) // Stop condition
+            while (polygon.CalculateFitness(sBPP) > settings.FitnessToReach) // Stop condition
             {
                 Polygon newPolygon = GenerateRandomPolygon(polygon);
                 if(newPolygon.CalculateFitness(sBPP) < polygon.CalculateFitness(sBPP))
                 {
                     polygon = newPolygon;
-                    Console.WriteLine(String.Format("Found better solution. Fittness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
+                    Console.WriteLine(String.Format("Found a better solution. Fitness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
                 }
             }
-            Console.WriteLine(String.Format("Found best solution. Fittness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
+            Console.WriteLine(String.Format("Found best solution. Fitness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
         }
 
         private Polygon InitalizePolygon()

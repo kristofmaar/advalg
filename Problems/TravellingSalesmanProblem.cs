@@ -67,7 +67,7 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
             return output;
         }
 
-        public static Route CreateCopy(List<Town> route)
+        public static Route CreateCopy(Route route)
         {
             Route newRoute = new Route();
             foreach (Town town in route)
