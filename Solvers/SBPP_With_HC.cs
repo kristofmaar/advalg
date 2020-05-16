@@ -24,7 +24,7 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
             Polygon polygon = InitalizePolygon();
             while (polygon.CalculateFitness(sBPP) > settings.FittnessToReach) // Stop condition
             {
-                Polygon newPolygon = MovePolygonRandomly(polygon);
+                Polygon newPolygon = GenerateRandomPolygon(polygon);
                 if(newPolygon.CalculateFitness(sBPP) < polygon.CalculateFitness(sBPP))
                 {
                     polygon = newPolygon;
@@ -45,7 +45,7 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
             return polygon;
         }
 
-        private Polygon MovePolygonRandomly(Polygon polygon)
+        private Polygon GenerateRandomPolygon(Polygon polygon)
         {
             Polygon newPolygon = new Polygon();
             foreach (Point point in polygon)
