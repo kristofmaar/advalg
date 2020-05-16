@@ -6,16 +6,23 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
 {
     public class TravellingSalesmanProblem
     {
-        public List<Town> towns;
+        private Route baseRoute = new Route();
 
-        public void loadTownsFromFile(string fileName)
+        public Route BaseRoute { get { return baseRoute; } }
+
+        public TravellingSalesmanProblem(string fileName)
+        {
+            loadTownsFromFile(fileName);
+        }
+
+        private void loadTownsFromFile(string fileName)
         {
             string[] lines = File.ReadAllLines(fileName);
 
             foreach (string line in lines)
             {
                 string[] lineSplit = line.Split("\t");
-                towns.Add(new Town()
+                baseRoute.Add(new Town()
                 {
                     x = float.Parse(lineSplit[0]),
                     y = float.Parse(lineSplit[1])
@@ -23,7 +30,7 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
             }
         }
 
-        public float objective(List<Town> route)
+        public float objective(Route route)
         {
             float sum_length = 0;
 
@@ -42,4 +49,32 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
         public float x;
         public float y;
     };
+
+    public class Route : List<Town>
+    {
+        public double CalculateFitness(TravellingSalesmanProblem tSP)
+        {
+            return tSP.objective(this);
+        }
+
+        public override string ToString()
+        {
+            string output = string.Empty;
+            foreach (Town town in this)
+            {
+                output += String.Format("({0},{1})\n", town.x, town.y);
+            }
+            return output;
+        }
+
+        public static Route CreateCopy(List<Town> route)
+        {
+            Route newRoute = new Route();
+            foreach (Town town in route)
+            {
+                newRoute.Add(town);
+            }
+            return newRoute;
+        }
+    }
 }

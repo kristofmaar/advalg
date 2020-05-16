@@ -5,7 +5,7 @@
         public int NumberOfPopulation;
         public int NumberOfParents;
         public int ElitismNumber;
-        public int FitnessToReach;
+        public double FitnessToReach;
         public int MutationPercent;
         public string InputFilePath;
     }

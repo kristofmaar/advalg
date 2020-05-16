@@ -40,9 +40,9 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
                 population = newPopulation;
                 best = GetBestChromosome(population);
 
-                Console.WriteLine(String.Format("Found better solution. Fittness: {0}\nvalues: {1}", best.CalculateFitness(functionApproximation).ToString(), best.ToString()));
+                Console.WriteLine(String.Format("Found better solution. Fittness: {0}\nValues: {1}", best.CalculateFitness(functionApproximation).ToString(), best.ToString()));
             }
-            Console.WriteLine("Fount best solution: Fittness:{0} Chromosome: {1}", best.CalculateFitness(functionApproximation), best.ToString());
+            Console.WriteLine("Fount best solution: Fittness:{0} \nValues:: {1}", best.CalculateFitness(functionApproximation), best.ToString());
         }
 
         private List<Chromosome> InitializePopulation()
