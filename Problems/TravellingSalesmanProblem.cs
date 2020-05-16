@@ -23,16 +23,6 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
             }
         }
 
-        public void saveTownsToFile(string fileName, List<Town> townVector)
-        {
-            List<string> output = new List<string>();
-            foreach (Town town in towns)
-            {
-                output.Add(String.Format("{0}\t{1}", town.x, town.y));
-            }
-            File.WriteAllLines(fileName, output);
-        }
-
         public float objective(List<Town> route)
         {
             float sum_length = 0;

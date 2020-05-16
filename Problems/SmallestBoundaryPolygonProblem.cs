@@ -70,16 +70,6 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
 				});
 			}
 		}
-
-		public void savePointsToFile(string fileName, List<Point> pointVector)
-		{
-			List<string> output = new List<string>();
-			foreach (Point point in pointVector)
-			{
-				output.Add(String.Format("{0}\t{1}", point.x, point.y));
-			}
-			File.WriteAllLines(fileName, output);
-		}
 	}
 
 	public class Point
