@@ -42,7 +42,7 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
 
                 Console.WriteLine(String.Format("Found a better solution. Fitness: {0}\nValues: {1}", best.CalculateFitness(functionApproximation).ToString(), best.ToString()));
             }
-            Console.WriteLine("Fount best solution: Fitness:{0} \nValues:: {1}", best.CalculateFitness(functionApproximation), best.ToString());
+            Console.WriteLine("Fount best solution: Fitness:{0} \nValues: {1}", best.CalculateFitness(functionApproximation), best.ToString());
         }
 
         private List<Chromosome> InitializePopulation()
