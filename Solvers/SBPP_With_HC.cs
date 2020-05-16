@@ -1,7 +1,6 @@
 ﻿using AdvancedAlgorithms_ISGK7K.Problems;
 using AdvancedAlgorithms_ISGK7K.Settings;
 using System;
-using System.Security.Cryptography;
 
 namespace AdvancedAlgorithms_ISGK7K.Solvers
 {
@@ -29,10 +28,10 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
                 if(newPolygon.CalculateFitness(sBPP) < polygon.CalculateFitness(sBPP))
                 {
                     polygon = newPolygon;
-                    Console.WriteLine(String.Format("Found better solution. Fitness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
+                    Console.WriteLine(String.Format("Found better solution. Fittness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
                 }
             }
-            Console.WriteLine(String.Format("Found best solution. Fitness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
+            Console.WriteLine(String.Format("Found best solution. Fittness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
             return polygon;
         }
 

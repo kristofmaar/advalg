@@ -26,7 +26,7 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
         {
             List<Chromosome> population = InitializePopulation();
             best = GetBestChromosome(population);
-            for (int iterations = 0; iterations < settings.MaxIterations; iterations++) // StopCondition
+            while (best.CalculateFitness(functionApproximation) > settings.FitnessToReach) // StopCondition
             {
                 List<Chromosome> newPopulation = Elitism(population);
 
@@ -40,9 +40,9 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
                 population = newPopulation;
                 best = GetBestChromosome(population);
 
-                Console.WriteLine(String.Format("Fittness: {0}\nvalues: {1}", best.CalculateFitness(functionApproximation).ToString(), best.ToString()));
+                Console.WriteLine(String.Format("Found better solution. Fittness: {0}\nvalues: {1}", best.CalculateFitness(functionApproximation).ToString(), best.ToString()));
             }
-            Console.WriteLine("Best solution found:\n\tFittness:{0}\n\tChromosome: {1}", best.CalculateFitness(functionApproximation), best.ToString());
+            Console.WriteLine("Fount best solution: Fittness:{0} Chromosome: {1}", best.CalculateFitness(functionApproximation), best.ToString());
         }
 
         private List<Chromosome> InitializePopulation()
