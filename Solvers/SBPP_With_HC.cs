@@ -19,7 +19,7 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
             sBPP = new SmallestBoundaryPolygonProblem(settings.InputFilePath);
         }
 
-        public Polygon SolveProblem()
+        public void SolveProblem()
         {
             Polygon polygon = InitalizePolygon();
             while (polygon.CalculateFitness(sBPP) > settings.FittnessToReach) // Stop condition
@@ -32,7 +32,6 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
                 }
             }
             Console.WriteLine(String.Format("Found best solution. Fittness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
-            return polygon;
         }
 
         private Polygon InitalizePolygon()
