@@ -22,7 +22,7 @@ namespace AdvancedAlgorithms_ISGK7K
                 Epsilon = 10,
                 Dimension = 3,
                 MaxCoordinates = 400,
-                FittnessToReach = 1,
+                FittnessToReach = 1.1,
                 InputFilePath = "Input/Points.txt"
             });
             sbppWithHc.SolveProblem();
