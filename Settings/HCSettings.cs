@@ -2,8 +2,10 @@
 {
     public class HCSettings
     {
-        public int MaxIterations;
+        public int Epsilon;
         public int Dimension;
+        public int MaxCoordinates;
+        public double FittnessToReach;
         public string InputFilePath;
     }
 }

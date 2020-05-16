@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AdvancedAlgorithms_ISGK7K.Problems
 {
@@ -50,6 +51,38 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
 			return sum_min_distances;
 		}
 
+		//public bool checkIsInBoundary(Polygon polygon)
+		//{
+		//	bool isInBoundary = true;
+		//	foreach (Point point in points)
+		//	{
+		//		if(!IsInPolygon(polygon, point))
+		//		{
+		//			isInBoundary = false;
+		//			break;
+		//		}
+		//	}
+		//	return isInBoundary;
+		//}
+
+		//public static bool IsInPolygon(Polygon polygon, Point testPoint)
+		//{
+		//	bool result = false;
+		//	int j = polygon.Count() - 1;
+		//	for (int i = 0; i < polygon.Count(); i++)
+		//	{
+		//		if (polygon[i].y < testPoint.y && polygon[j].y >= testPoint.y || polygon[j].y < testPoint.y && polygon[i].y >= testPoint.y)
+		//		{
+		//			if (polygon[i].x + (testPoint.y - polygon[i].y) / (polygon[j].y - polygon[i].y) * (polygon[j].x - polygon[i].x) < testPoint.x)
+		//			{
+		//				result = !result;
+		//			}
+		//		}
+		//		j = i;
+		//	}
+		//	return result;
+		//}
+
 		public double objective(List<Point> solution)
 		{
 			return lengthOfBoundary(solution);
@@ -96,7 +129,16 @@ namespace AdvancedAlgorithms_ISGK7K.Problems
 	{
 		public double CalculateFitness(SmallestBoundaryPolygonProblem smallestBoundaryPolygonProblem)
 		{
-			return smallestBoundaryPolygonProblem.lengthOfBoundary(this) + smallestBoundaryPolygonProblem.outerDistanceToBoundary(this);
+			double calculatedFitness = 0;
+			if (smallestBoundaryPolygonProblem.outerDistanceToBoundary(this) != 0)
+			{
+				calculatedFitness = smallestBoundaryPolygonProblem.objective(this) * smallestBoundaryPolygonProblem.outerDistanceToBoundary(this);
+			}
+			else
+			{
+				calculatedFitness = 10000000;
+			}
+			return calculatedFitness;
 		}
 
 		public override string ToString()

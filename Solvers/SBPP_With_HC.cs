@@ -1,6 +1,7 @@
 ﻿using AdvancedAlgorithms_ISGK7K.Problems;
 using AdvancedAlgorithms_ISGK7K.Settings;
 using System;
+using System.Security.Cryptography;
 
 namespace AdvancedAlgorithms_ISGK7K.Solvers
 {
@@ -21,28 +22,43 @@ namespace AdvancedAlgorithms_ISGK7K.Solvers
 
         public Polygon SolveProblem()
         {
-            Polygon polygon = GenerateRandomPolygon();
-            for (int i = 0; i < settings.MaxIterations; i++)
+            Polygon polygon = InitalizePolygon();
+            while (polygon.CalculateFitness(sBPP) > settings.FittnessToReach) // Stop condition
             {
-                Polygon newPolygon = GenerateRandomPolygon();
+                Polygon newPolygon = MovePolygonRandomly(polygon);
                 if(newPolygon.CalculateFitness(sBPP) < polygon.CalculateFitness(sBPP))
                 {
                     polygon = newPolygon;
-                    Console.WriteLine(newPolygon.CalculateFitness(sBPP));
+                    Console.WriteLine(String.Format("Found better solution. Fitness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
                 }
             }
-            Console.WriteLine(String.Format("Found solution after {0} iterations. Fitness: {1}, coordinates: {2}", settings.MaxIterations, polygon.CalculateFitness(sBPP), polygon.ToString()));
+            Console.WriteLine(String.Format("Found best solution. Fitness: {0}, coordinates: {1}", polygon.CalculateFitness(sBPP), polygon.ToString()));
             return polygon;
         }
 
-        private Polygon GenerateRandomPolygon()
+        private Polygon InitalizePolygon()
         {
             Polygon polygon = new Polygon();
             for (int i = 0; i < settings.Dimension; i++)
             {
-                polygon.Add(new Point() { x = random.Next(0,400), y = random.Next(0,400) });
+                polygon.Add(new Point() { x = random.Next(0, settings.MaxCoordinates), y = random.Next(0, settings.MaxCoordinates)});
             }
             return polygon;
+        }
+
+        private Polygon MovePolygonRandomly(Polygon polygon)
+        {
+            Polygon newPolygon = new Polygon();
+            foreach (Point point in polygon)
+            {
+                Point newPoint = new Point()
+                {
+                    x = point.x + random.Next(-1 * settings.Epsilon, settings.Epsilon),
+                    y = point.y + random.Next(-1 * settings.Epsilon, settings.Epsilon)
+            };
+                newPolygon.Add(newPoint);
+            }
+            return newPolygon;
         }
     }
 }

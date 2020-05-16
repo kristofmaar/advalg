@@ -19,8 +19,10 @@ namespace AdvancedAlgorithms_ISGK7K
 
             SBPP_With_HC sbppWithHc = new SBPP_With_HC(new HCSettings()
             {
-                MaxIterations = 5000000,
+                Epsilon = 10,
                 Dimension = 3,
+                MaxCoordinates = 400,
+                FittnessToReach = 1,
                 InputFilePath = "Input/Points.txt"
             });
             sbppWithHc.SolveProblem();
